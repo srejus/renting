@@ -48,3 +48,21 @@ class SignupView(View):
         if password1 != password2:
             err = "Password not matching!"
             return redirect(f"/accounts/signup?err={err}")
+
+        user = User.objects.filter(username=username)
+        if user.exists():
+            err = "User with this username already exists"
+            return redirect(f"/accounts/signup?err={err}")
+        
+        acc = Account.objects.filter(Q(email=email) | Q(phone=phone)).exists()
+        if acc:
+            err = "User with this phone or email already exists"
+            return redirect(f"/accounts/signup?err={err}")
+        
+        user = User.objects.create_user(username=username,email=email,password=password1)
+        acc = Account.objects.create(user=user,full_name=full_name,phone=phone,
+                                     email=email,address1=address1,address2=address2,pincode=pincode,
+                                     landmark=landmark)
+
+        return redirect('/accounts/login')
+    
