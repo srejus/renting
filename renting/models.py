@@ -19,3 +19,27 @@ class Listing(models.Model):
     category = models.CharField(max_length=15,default='OTHERS')
     description = models.CharField(max_length=200,null=True,blank=True)
     is_available = models.BooleanField(default=True)
+
+
+class RentedItem(models.Model):
+    REQUEST_PLACED = 'REQUEST_PLACED'
+    ACCEPTED = 'ACCEPTED'
+    REJECTED = 'REJECTED'
+    STATUS_CHOCIES = (
+        (REQUEST_PLACED,REQUEST_PLACED),
+        (ACCEPTED,ACCEPTED),
+        (REJECTED,REJECTED),
+    )
+    user = models.ForeignKey(Account,on_delete=models.CASCADE,related_name='rented_by')
+    item = models.ForeignKey(Listing,on_delete=models.CASCADE)
+    no_of_days = models.IntegerField(default=1)
+    full_name = models.CharField(max_length=50,null=True,blank=True)
+    phone = models.CharField(max_length=15,null=True,blank=True)
+    address = models.CharField(max_length=50,null=True,blank=True)
+    pincode = models.CharField(max_length=6,null=True,blank=True)
+    landmark = models.CharField(max_length=50,null=True,blank=True)
+    status = models.CharField(max_length=50,default='REQUEST_PLACED',choices=STATUS_CHOCIES)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.user.full_name)+">"+str(self.item.item_name)

@@ -23,6 +23,9 @@ class LoginView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            next = request.GET.get("next")
+            if next:
+                return redirect(next)
             return redirect("/")
         err = "Invalid credentails!"
         return redirect(f"/account/login/?err={err}")
