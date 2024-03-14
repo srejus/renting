@@ -1,8 +1,14 @@
 User End
 
+-> Rent Item - DONE
+-> Login/Signup - DONE
+-> Search Products for rent based on location - DONE
 -> Rent Order history
 -> Profile Edit
 
 Admin
 
--> Manage Order
+-> Dashboard - DONE
+-> Manage Order - DONE 
+-> Manage User - DONE
+-> Separate Admin Login - DONE
