@@ -124,7 +124,7 @@
 		<section id="explore" class="explore">
 			<div class="container">
 				<div class="section-header">
-					<h2 style="margin-bottom: -25px;">Login to your account</h2>
+					<h2 style="margin-bottom: -25px;">{{type}}</h2>
 				</div><!--/.section-header-->
 				<div class="explore-content mrow">
 					<form action="" method="POST" class="form">
@@ -133,7 +133,12 @@
 						<input type="password" name="password" placeholder="Enter Password..." class="form-control"><br>
 						<input type="submit" value="Login"  class="form-control btn btn-primary"><br>
 						<br>
-						<a href="/accounts/signup" style="color: dodgerblue;">Create new Account</a>
+						<a href="/accounts/signup" style="color: dodgerblue;">Create new Account</a><br><br>
+
+						<div style="display: flex;flex-direction: row;justify-content: space-between;">
+							<a href="/accounts/login/?type=delivery" style="color: dodgerblue;">Login as Delivery Agent</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<a href="/accounts/login/?type=admin" style="color: dodgerblue;">Login as Admin</a>
+						</div>
 					</form>
 				</div>
 			</div><!--/.container-->
@@ -191,7 +196,7 @@
 
 			<script>
 				alert("{{err}}");
-				window.location.href = '/accounts/signup';
+				// window.location.href = '/accounts/login/';
 			</script>
 
 			{% endif %}

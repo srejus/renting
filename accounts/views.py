@@ -14,14 +14,32 @@ from .models import *
 class LoginView(View):
     def get(self,request):
         err = request.GET.get("err")
-        return render(request,'login.html',{'err':err})
+        type_ = request.GET.get("type","user")
+        if type_ == "user":
+            title = "LOGIN TO YOUR ACCOUNT"
+        elif type_ == 'admin':
+            title = "ADMIN LOGIN"
+        else:
+            title = "LOGIN AS DELIVERY AGENT"
+        return render(request,'login.html',{'err':err,"type":title})
 
     def post(self,request):
         username = request.POST.get("username")
         password = request.POST.get("password")
+        type_ = request.GET.get("type")
         
         user = authenticate(request, username=username, password=password)
         if user is not None:
+            acc = Account.objects.get(user=user)
+            if type_ == 'user' and acc.user_type != Account.USER:
+                err = "Invalid user credentials!"
+                return redirect(f"/accounts/login/?err={err}")
+            if type_ == 'admin' and acc.user_type != Account.ADMIN:
+                err = "Invalid user credentials!"
+                return redirect(f"/accounts/login/?err={err}")
+            if type_ == 'delivery' and acc.user_type != Account.DELIVERY_AGENT:
+                err = "Invalid user credentials!"
+                return redirect(f"/accounts/login/?err={err}")
             login(request, user)
             next = request.GET.get("next")
             if next:
@@ -74,3 +92,40 @@ class LogoutView(View):
     def get(self,request):
         logout(request)
         return redirect("/")
+    
+
+@method_decorator(login_required,name='dispatch')
+class ProfileView(View):
+    def get(self,request):
+        acc = Account.objects.get(user=request.user)
+        return render(request,'profile.html',{'acc':acc})
+    
+
+@method_decorator(login_required,name='dispatch')
+class EditProfileView(View):
+    def get(self,request):
+        acc = Account.objects.get(user=request.user)
+        return render(request,'edit_profile.html',{'acc':acc})
+    
+    def post(self,request):
+        full_name = request.POST.get("full_name")
+        phone = request.POST.get("phone")
+        email = request.POST.get("email")
+        address1 = request.POST.get("address1")
+        address2 = request.POST.get("address2")
+        pincode = request.POST.get("pincode")
+        landmark = request.POST.get("landmark")
+
+        acc = Account.objects.get(user=request.user)
+
+        acc.full_name = full_name
+        acc.phone = phone
+        acc.email = email
+        acc.address1 = address1
+        acc.address2 = address2
+        acc.pincode = pincode
+        acc.landmark = landmark
+        acc.save()
+        return redirect("/accounts/profile")
+
+    

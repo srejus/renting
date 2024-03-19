@@ -13,7 +13,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
         
         <!-- title of site -->
-        <title>Rent It</title>
+        <title>Rent It | Edit Profile</title>
 
         <!-- For favicon png -->
 		<link rel="shortcut icon" type="image/icon" href="{% static 'assets/logo/favicon.png '%}"/>
@@ -100,89 +100,73 @@
 		</section><!-- /.top-area-->
 		<!-- top-area End -->
 
+		<style>
+			.form{
+				width: 50%;
+			}
+
+			.mrow{
+				display: flex;
+				align-items: center;
+				flex-direction: column;
+				justify-content: center;
+			}
+
+			@media(max-width:852px){
+				.form{
+					width: 80%;
+				}
+			}
+		</style>
+
 
 		<!--explore start -->
 		<section id="explore" class="explore">
 			<div class="container">
 				<div class="section-header">
-					<h2 style="margin-bottom: 5px;">find products</h2>
-					<p>Explore Your Needs at an Affordable Rates At Your Finger Tips</p>
+					<h2 style="margin-bottom: -25px;">Edit Profile</h2>
 				</div><!--/.section-header-->
-				<div class="explore-content">
-					<div class="row">
+				<div class="explore-content mrow">
+					<form action="" method="POST" class="form">
+						{% csrf_token %}
+						<!-- <input type="text" name="username" placeholder="Enter Username..." class="form-control"><br>
+						<input type="password" name="password1" placeholder="Enter Password..." class="form-control"><br>
+						<input type="password" name="password2" placeholder="Confirm Password..." class="form-control"><br> -->
 
-						{% for item in items %}
-						<div class=" col-md-4 col-sm-6">
-							<div class="single-explore-item">
-								<div class="single-explore-img">
-									<img src="/static/images/listing_images/{{item.item_image.path}}" alt="explore image">
-									<div class="single-explore-img-info">
-										<button onclick="window.location.href='#'">best rated</button>
-										<div class="single-explore-image-icon-box">
-											<ul>
-												<li>
-													<a href="/static/images/{{item.item_image.path}}" target="_blank"
-													class="single-explore-image-icon">
-														<i class="fa fa-arrows-alt"></i>
-													</a>
-												</li>
-												<!-- <li>
-													<div class="single-explore-image-icon">
-														<i class="fa fa-bookmark-o"></i>
-													</div>
-												</li> -->
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="single-explore-txt bg-theme-1">
-									<h2><a href="#">{{item.item_name}}</a></h2>
-									<p class="explore-rating-price">
-										<span class="explore-rating" style="background-color: limegreen;">{{item.avg_rating}}</span>
-										<span class="explore-price-box">
-											Rent form
-											<span class="explore-price"> {{item.rent_price_per_day}} Rs /Day</span>
-										</span>
-										 <a href="#">{{item.category}}</a>
-									</p>
-									<div class="explore-person">
-										<div class="row">
-											
-											<div class="col-sm-12" style="height: 100px;">
-												<p>
-													{{item.description}} 
-												</p>
-												<br>
-												<p>Location : {{item.location}}</p>
-											</div>
-										</div>
-									</div>
-									<div class="explore-open-close-part">
-										<div class="row">
-											<div class="col-sm-5">
-												<button class="close-btn" onclick="window.location.href='/renting/{{item.id}}'">Rent Now</button>
-											</div>
-											<div class="col-sm-7">
-												<div class="explore-map-icon">
-													<!-- <a href="#"><i data-feather="map-pin"></i></a>
-													<a href="#"><i data-feather="upload"></i></a>
-													<a href="#"><i data-feather="heart"></i></a> -->
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						{% endfor %}
-
-
-					</div>
+						<label for="">Full Name</label>
+						<input  value="{{acc.full_name}}" type="text" name="full_name" placeholder="Enter Full Name..." class="form-control"><br>
+						<label for="">Phone</label>
+						<input  value="{{acc.phone}}" type="text" name="phone" placeholder="Enter Phone Number..." class="form-control"><br>
+						<label for="">Email</label>
+						<input  value="{{acc.email}}" type="email" name="email" placeholder="Enter Email..." class="form-control"><br>
+						<label for="">Address 1</label>
+						<input  value="{{acc.address1}}" type="text" name="address1" placeholder="Enter Address 1..." class="form-control"><br>
+						<label for="">Address 2</label>
+						<input  value="{{acc.address2}}" type="text" name="address2" placeholder="Enter Address 2..." class="form-control"><br>
+						<label for="">Pincode</label>
+						<input  value="{{acc.pincode}}" type="text" name="pincode" placeholder="Enter Pincode..." class="form-control"><br>
+						<label for="">Landmark</label>
+						<input  value="{{acc.landmark}}" type="text" name="landmark" placeholder="Enter Landmark..." class="form-control"><br>
+ 
+						<input type="submit" value="Update Changes"  class="form-control btn btn-primary"><br>
+						<br>
+						<!-- <a href="/account/login/" style="color: dodgerblue;">Already have an Account? Login</a> -->
+					</form>
 				</div>
 			</div><!--/.container-->
+			<br><br>
 
 		</section><!--/.explore-->
 		<!--explore end -->
+
+		{% if err %}
+
+			<script>
+				alert("{{err}}");
+				window.location.href = '/accounts/signup';
+			</script>
+
+			{% endif %}
 
 
 

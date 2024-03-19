@@ -37,6 +37,9 @@ class AdminLoginView(View):
 class AdminHomeView(View):
     def get(self,request):
         acc = Account.objects.get(user=request.user)
+        if acc.user_type != Account.ADMIN:
+            return redirect("/")
+        
         return render(request,'admin_home.html',{'acc':acc})
     
 

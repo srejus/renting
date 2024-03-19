@@ -10,7 +10,10 @@ class RentView(View):
     def get(self,request):
         category = request.GET.get("item")
         location = request.GET.get("location")
-        items = Listing.objects.filter(is_available=True,location=location).order_by('-id')
+        if location:
+            items = Listing.objects.filter(item_name__icontains=category,is_available=True,location=location).order_by('-id')
+        else:
+            items = Listing.objects.filter(item_name__icontains=category,is_available=True).order_by('-id')
         return render(request,'listing.html',{'items':items})
     
 
