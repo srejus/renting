@@ -19,6 +19,6 @@ Admin
 -> Add login as Admin and login as delivery agent in login page - DONE
 -> scroll that how it works, review sec etc to the corresponding sections in home page - DONE
 -> send emails when login,signup place Order
--> redirect to success page when placed order -> then to home or my orders
--> adjust qnty of rent items in rentform page 
+-> redirect to success page when placed order -> then to home or my orders - DONE
+-> adjust qnty of rent items in rentform page - DONE
 -> profile view and update sections - DONE

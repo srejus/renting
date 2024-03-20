@@ -13,7 +13,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
         
         <!-- title of site -->
-        <title>Rent It | Rent</title>
+        <title>Rent It | My Orders</title>
 
         <!-- For favicon png -->
 		<link rel="shortcut icon" type="image/icon" href="{% static 'assets/logo/favicon.png '%}"/>
@@ -124,63 +124,26 @@
 		<section id="explore" class="explore">
 			<div class="container">
 				<div class="section-header">
-					<h2 style="margin-bottom: -25px;">Rent Item Now</h2>
+					<h2 style="margin-bottom: -25px;">My Orders</h2>
 				</div><!--/.section-header-->
+				{% for item in items %}
 				<div class="explore-content mrow">
-					<form action="" method="POST" class="form">
-						{% csrf_token %}
-						<br>
-						<div class="row" style="width: 100%;display: flex;">
+					<div class="row" style="width: 100%;display: flex;">
 							
-								<img src="/static/images/{{item.item_image.path}}" style="margin: 15px;width: 70px;height: 70px;" alt="">
-								<div>
-									<h4 style="margin-top: 20px;">{{item.item_name}} X <span id="qnty">1</span></h4><br>
-									<input type="hidden" value="1" id="qntyInp" name="qnty">
-									<div>
-										<button type="button" class="btn btn-danger" onclick="removeQnty()">-</button>
-										<button type="button" class="btn btn-danger" onclick="addQnty()">+</button>
-									</div>
-								</div>
+						<img src="/static/images/{{item.item.item_image.path}}" style="margin: 15px;width: 120px;height: 110px;" alt="">
+						<div><br>
+							<h1><b>#ORDER_{{item.id}}</b> ({{item.created_at}})</h1>
+							<h4 style="margin-top: 15px;margin-bottom: -15px;">{{item.item.item_name}} X <span id="qnty">{{item.qnty}}</span></h4><br>
+							<input type="hidden" value="1" id="qntyInp" name="qnty">
+							<p>No of Days : {{item.no_of_days}}</p>
+							<p>Status : <b>{{item.status}}</b></p>
+						</div>
 
-						<script>
-							function addQnty(){
-								var qnty = document.getElementById('qnty').innerHTML;
-    							document.getElementById('qnty').innerHTML = parseInt(qnty) + 1;
-								document.getElementById('qntyInp').value = parseInt(qnty) + 1;
-							}
+				
+				</div><br>
 
-							function removeQnty(){
-								var qnty = document.getElementById('qnty').innerHTML;
-								if(parseInt(qnty) > 1) {
-									document.getElementById('qnty').innerHTML = parseInt(qnty) - 1;
-									document.getElementById('qntyInp').value = parseInt(qnty) - 1;
-								} 
-							}
-						</script>
-							
-						</div><br>
-						<label for="full_name">Full Name</label>
-						<input type="text" name="full_name" value="{{acc.full_name}}" placeholder="Enter Fullname..." class="form-control"><br>
-						<label for="no_of_days">No of Days Wanted</label>
-						<select name="no_of_days" class="form-control">
-							<option value="1">1 Day</option>
-							<option value="2">2 Days</option>
-							<option value="3">3 Days</option>
-							<option value="4">4 Days</option>
-							<option value="5">5 Days</option>
-						</select><br>
-						<label for="address">Address</label>
-						<input type="text" required name="address1" class="form-control" value="{{acc.address1}}" placeholder="Your Address...*"><br>
-						<label for="address">Phone</label>
-						<input type="number" required name="phone" class="form-control" value="{{acc.phone}}" placeholder="Your Phone...*"><br>
-						<label for="address">Pincode</label>
-						<input type="number" required name="pincode" value="{{acc.pincode}}" class="form-control" placeholder="Your Pincode...*"><br>
-						<label for="address">Landmark</label>
-						<input type="text" required name="landmark" value="{{acc.landmark}}" class="form-control" placeholder="Nearest Landmark...*"><br>
-						<input type="submit" value="Place Rent Request"  class="form-control btn btn-primary"><br>
-						<br>
-					</form>
 				</div>
+				{% endfor 	%}
 			</div><!--/.container-->
 			<br><br>
 

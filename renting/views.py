@@ -31,14 +31,23 @@ class ItemRentView(View):
         pincode = request.POST.get("pincode")
         landmark = request.POST.get("landmark")
         no_of_days = request.POST.get("no_of_days")
+        qnty = request.POST.get("qnty")
 
         acc = Account.objects.get(user=request.user)
         item = Listing.objects.get(id=id)
 
         RentedItem.objects.create(
-            user=acc,item=item,full_name=full_name,phone=phone,pincode=pincode,landmark=landmark,address=address1,no_of_days=no_of_days
+            user=acc,item=item,full_name=full_name,phone=phone,pincode=pincode,landmark=landmark,address=address1,
+            no_of_days=no_of_days,qnty=qnty
         )
 
-        msg = "Rent Request placed Successfully!"
-        return redirect(f"/?msg={msg}")
+        return render(request,'thanks.html')
+        # return redirect(f"/?msg={msg}")
 
+
+@method_decorator(login_required,name='dispatch')
+class MyOrdersView(View):
+    def get(self,request,id=None):
+        items = RentedItem.objects.filter(user__user=request.user).order_by('-id')
+        return render(request,'my_orders.html',{'items':items})
+    

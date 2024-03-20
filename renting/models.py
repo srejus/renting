@@ -33,6 +33,7 @@ class RentedItem(models.Model):
     user = models.ForeignKey(Account,on_delete=models.CASCADE,related_name='rented_by')
     item = models.ForeignKey(Listing,on_delete=models.CASCADE)
     no_of_days = models.IntegerField(default=1)
+    qnty = models.IntegerField(default=1)
     full_name = models.CharField(max_length=50,null=True,blank=True)
     phone = models.CharField(max_length=15,null=True,blank=True)
     address = models.CharField(max_length=50,null=True,blank=True)
