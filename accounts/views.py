@@ -73,6 +73,7 @@ class SignupView(View):
         address2 = request.POST.get("address2")
         pincode = request.POST.get("pincode")
         landmark = request.POST.get("landmark")
+        user_type = request.POST.get("user_type","USER")
 
         if password1 != password2:
             err = "Password not matching!"
@@ -91,7 +92,7 @@ class SignupView(View):
         user = User.objects.create_user(username=username,email=email,password=password1)
         acc = Account.objects.create(user=user,full_name=full_name,phone=phone,
                                      email=email,address1=address1,address2=address2,pincode=pincode,
-                                     landmark=landmark)
+                                     landmark=landmark,user_type=user_type)
         
          # sending email
         subject = "Welcome to Rentit!"
