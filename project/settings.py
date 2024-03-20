@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 
     'admin_user',
     'accounts',
+    'delivery',
     'home',
     'renting',
 ]

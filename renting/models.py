@@ -25,10 +25,15 @@ class RentedItem(models.Model):
     REQUEST_PLACED = 'REQUEST_PLACED'
     ACCEPTED = 'ACCEPTED'
     REJECTED = 'REJECTED'
+    PICKED_UP = 'PICKED_UP'
+    DELIVERED = 'DELIVERED'
+
     STATUS_CHOCIES = (
         (REQUEST_PLACED,REQUEST_PLACED),
         (ACCEPTED,ACCEPTED),
         (REJECTED,REJECTED),
+        (PICKED_UP,PICKED_UP),
+        (DELIVERED,DELIVERED)
     )
     user = models.ForeignKey(Account,on_delete=models.CASCADE,related_name='rented_by')
     item = models.ForeignKey(Listing,on_delete=models.CASCADE)

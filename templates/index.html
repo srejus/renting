@@ -89,7 +89,12 @@
 			                    <li class="scroll" onclick="window.location.href='/#works'"><a href="#works">how it works</a></li>
 			                    <li class="scroll" onclick="window.location.href='/accounts/profile'"><a href="/accounts/profile">Profile</a></li>
 			                    <li class="scroll" onclick="window.location.href='/#reviews'"><a href="#reviews">review</a></li>
+								{% if request.user.is_authenticated %}
 								<li class="scroll" onclick="window.location.href='/renting/my-orders'"><a href="/renting/my-orders">My Orders</a></li>
+								<li class="scroll" onclick="window.location.href='/accounts/logout'"><a href="/accounts/logout">Logout</a></li>
+								{% else %}
+								<li class="scroll" onclick="window.location.href='/accounts/login/'"><a href="/accounts/login/">Login</a></li>
+								{% endif %}
 			                </ul><!--/.nav -->
 			            </div><!-- /.navbar-collapse -->
 			        </div><!--/.container-->

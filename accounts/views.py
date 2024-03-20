@@ -26,7 +26,7 @@ class LoginView(View):
     def post(self,request):
         username = request.POST.get("username")
         password = request.POST.get("password")
-        type_ = request.GET.get("type")
+        type_ = request.GET.get("type","user")
         
         user = authenticate(request, username=username, password=password)
         if user is not None:
@@ -41,6 +41,11 @@ class LoginView(View):
                 err = "Invalid user credentials!"
                 return redirect(f"/accounts/login/?err={err}")
             login(request, user)
+            if type_ == 'delivery':
+                return redirect("/delivery/")
+            
+            if type_ == 'admin':
+                return redirect("/adminuser/")
             next = request.GET.get("next")
             if next:
                 return redirect(next)
