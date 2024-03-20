@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db.models import Q
 
+from project.utils import send_mail
+
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
@@ -41,14 +43,15 @@ class LoginView(View):
                 err = "Invalid user credentials!"
                 return redirect(f"/accounts/login/?err={err}")
             login(request, user)
+            next = request.GET.get("next")
+            if next:
+                return redirect(next)
+            
             if type_ == 'delivery':
                 return redirect("/delivery/")
             
             if type_ == 'admin':
                 return redirect("/adminuser/")
-            next = request.GET.get("next")
-            if next:
-                return redirect(next)
             return redirect("/")
         err = "Invalid credentails!"
         return redirect(f"/account/login/?err={err}")
@@ -89,6 +92,12 @@ class SignupView(View):
         acc = Account.objects.create(user=user,full_name=full_name,phone=phone,
                                      email=email,address1=address1,address2=address2,pincode=pincode,
                                      landmark=landmark)
+        
+         # sending email
+        subject = "Welcome to Rentit!"
+        to_email = email
+        content = f"Hello {full_name},\nWelcome to Rentit. You can now place Rent request to various items listed in the webiste \n\n Thanks \nTeam RentIt"
+        send_mail(to_email,subject,content)
 
         return redirect('/accounts/login')
     

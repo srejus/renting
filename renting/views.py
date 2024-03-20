@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from .models import *
+from project.utils import send_mail
 
 # Create your views here.
 class RentView(View):
@@ -28,6 +29,7 @@ class ItemRentView(View):
         full_name = request.POST.get("full_name")
         address1 = request.POST.get("address1")
         phone = request.POST.get("phone")
+        email = request.POST.get("email")
         pincode = request.POST.get("pincode")
         landmark = request.POST.get("landmark")
         no_of_days = request.POST.get("no_of_days")
@@ -41,6 +43,11 @@ class ItemRentView(View):
             no_of_days=no_of_days,qnty=qnty
         )
 
+        # sending email
+        subject = "Rent Request Placed Successfully!"
+        to_email = email
+        content = f"Hello,\nYour rent request from {item.item_name} has been placed successfully!\n\n Thanks \nTeam RentIt"
+        send_mail(to_email,subject,content)
         return render(request,'thanks.html')
         # return redirect(f"/?msg={msg}")
 
