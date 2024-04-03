@@ -16,7 +16,7 @@ class Listing(models.Model):
     item_image = models.ImageField(upload_to='listing_images',null=True)
     location = models.CharField(max_length=100,null=True,blank=True)
     avg_rating = models.DecimalField(default=0.0,max_digits=2,decimal_places=1)
-    category = models.CharField(max_length=15,default='OTHERS')
+    category = models.CharField(max_length=15,default='OTHERS',choices=CATEGORY_CHOICES)
     description = models.CharField(max_length=200,null=True,blank=True)
     is_available = models.BooleanField(default=True)
 

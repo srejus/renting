@@ -68,6 +68,10 @@ class AdminListingsView(View):
 class AdminListingDeleteView(View):
     def get(self,request,id):
         Listing.objects.get(id=id).delete()
+        type_ = request.GET.get("type")
+
+        if type_ == 'user':
+            return redirect("/listing")
         return redirect("/adminuser/listings")
     
 
