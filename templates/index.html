@@ -92,6 +92,7 @@
 								{% if request.user.is_authenticated %}
 								<li class="scroll" onclick="window.location.href='/renting/my-orders'"><a href="/renting/my-orders">My Orders</a></li>
 								<li class="scroll" onclick="window.location.href='/accounts/logout'"><a href="/accounts/logout">Logout</a></li>
+								<li class="scroll" onclick="window.location.href='/add-listing'"><a href="/add-listing">add listing</a></li>
 								{% else %}
 								<li class="scroll" onclick="window.location.href='/accounts/login/'"><a href="/accounts/login/">Login</a></li>
 								{% endif %}

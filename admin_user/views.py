@@ -55,8 +55,21 @@ class AdminRentsView(View):
     def get(self,request):
         rents = RentedItem.objects.all().order_by('-id')
         return render(request,'admin_rents.html',{'rents':rents})
-    
 
+
+@method_decorator(login_required,name='dispatch')
+class AdminListingsView(View):
+    def get(self,request):
+        items = Listing.objects.all().order_by('-id')
+        return render(request,'admin_listings.html',{'items':items})
+
+
+@method_decorator(login_required,name='dispatch')
+class AdminListingDeleteView(View):
+    def get(self,request,id):
+        Listing.objects.get(id=id).delete()
+        return redirect("/adminuser/listings")
+    
 
 @method_decorator(login_required,name='dispatch')
 class AdminRentRejectView(View):

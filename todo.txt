@@ -22,3 +22,7 @@ Admin
 -> redirect to success page when placed order -> then to home or my orders - DONE
 -> adjust qnty of rent items in rentform page - DONE
 -> profile view and update sections - DONE
+
+
+-> View Listed products option in Admin Dashboard
+-> Option to upload and manage Listed Items by User

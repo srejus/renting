@@ -55,14 +55,14 @@
                     <li>
                         <a href="/adminuser/users"><i class="fa fa-table "></i>Users  <span class="badge"></span></a>
                     </li>
-                    <li  class="active-link">
+                    <li>
                         <a href="/adminuser/rents"><i class="fa fa-edit "></i>Manage Rent Requests  <span class="badge"></span></a>
                     </li>
 
-          
-                  <li>
-                      <a href="/adminuser/listings"><i class="fa fa-list "></i>Manage Listings  <span class="badge"></span></a>
-                  </li>
+                    <li class="active-link">
+                        <a href="/adminuser/listings"><i class="fa fa-list "></i>Manage Listings  <span class="badge"></span></a>
+                    </li>
+
 
 
                     
@@ -75,7 +75,7 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-lg-12">
-                     <h2>ADMIN DASHBOARD | Rents</h2>   
+                     <h2>ADMIN DASHBOARD | Listings</h2>   
                     </div>
                 </div>              
                  <!-- /. ROW  -->
@@ -100,30 +100,23 @@
                   <table class="table table-striped">
                     <thead class="thead-dark">
                       <tr>
-                        <th>ID</th>
-                        <th>Full Name</th>
-                        <th>Address</th>
-                        <th>Phone</th>
-                        <th>Item</th>
-                        <th>No of Days</th>
-                        <th>Status</th>
+                        <th>Listed By</th>
+                        <th>Item Name</th>
+                        <th>Rent Per Day</th>
+                        <th>Location</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <!-- Add your table data here -->
-                      {% for rent in rents %}
+                      {% for item in items %}
                       <tr>
-                        <td>{{rent.id}}</td>
-                        <td>{{rent.full_name}}</td>
-                        <td>{{rent.address}}</td>
-                        <td>{{rent.phone}}</td>
-                        <td>{{rent.item.item_name}}</td>
-                        <td>{{rent.no_of_days}}</td>
-                        <td>{{rent.status}}</td>
+                        <td>{{item.listed_by.full_name}}</td>
+                        <td>{{item.item_name}}</td>
+                        <td>{{item.rent_price_per_day}}</td>
+                        <td>{{item.location}}</td>
                         <td>
-                          <button class="btn btn-danger" onclick="window.location.href='/adminuser/rents/reject/{{rent.id}}'">Reject</button>
-                          <button class="btn btn-success" onclick="window.location.href='/adminuser/rents/accept/{{rent.id}}'">Accept</button>
+                          <button class="btn btn-danger" onclick="window.location.href='/adminuser/listings/delete/{{item.id}}'">Delete Listing</button>
                         </td>
                       </tr>
                       {% endfor %}
