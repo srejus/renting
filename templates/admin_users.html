@@ -104,6 +104,7 @@
                         <th>Full Name</th>
                         <th>Address</th>
                         <th>Phone</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -114,6 +115,9 @@
                         <td>{{user.full_name}}</td>
                         <td>{{user.address1}}</td>
                         <td>{{user.phone}}</td>
+                        <td>
+                            <button onclick="window.location.href='/adminuser/users/delete/{{user.id}}'" class="btn btn-danger">Delete User</button>
+                        </td>
                       </tr>
                       {% endfor %}
                       <!-- Add more rows as needed -->

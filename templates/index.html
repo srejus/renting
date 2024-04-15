@@ -110,12 +110,21 @@
 		<!--welcome-hero start -->
 		<section id="home" class="welcome-hero">
 			<div class="container">
+				{% if not request.user.is_authenticated %}
 				<div class="welcome-hero-txt">
 					<h2>best place to find and explore <br> that all you need </h2>
 					<p>
 						Find Best deals in just One click . Sooper fast Services at Affordable <rates class=""></rates>
 					</p>
 				</div>
+				{% else %}
+				<div class="welcome-hero-txt">
+					<h2> Welcome {{request.user}}, <br>explore that all you need </h2>
+					<p>
+						Find Best deals in just One click . Sooper fast Services at Affordable <rates class=""></rates>
+					</p>
+				</div>
+				{% endif %}
 				<form action="/renting/" method="GET">
 				<div class="welcome-hero-serch-box">
 					<div class="welcome-hero-form">

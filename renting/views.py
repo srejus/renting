@@ -3,6 +3,8 @@ from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
+from django.db.models import Q
+
 from .models import *
 from project.utils import send_mail
 
@@ -12,9 +14,9 @@ class RentView(View):
         category = request.GET.get("item")
         location = request.GET.get("location")
         if location:
-            items = Listing.objects.filter(item_name__icontains=category,is_available=True,location=location).order_by('-id')
+            items = Listing.objects.filter(is_available=True,location=location).filter(Q(item_name__icontains=category) | Q(category__icontains=category)).order_by('-id')
         else:
-            items = Listing.objects.filter(item_name__icontains=category,is_available=True).order_by('-id')
+            items = Listing.objects.filter(is_available=True).filter(Q (item_name__icontains=category) | Q(category__icontains=category)).order_by('-id')
         return render(request,'listing.html',{'items':items})
     
 

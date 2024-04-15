@@ -51,6 +51,13 @@ class AdminUsersView(View):
     
 
 @method_decorator(login_required,name='dispatch')
+class AdminDeleteUserView(View):
+    def get(self,request,id):
+        Account.objects.get(id=id).delete()
+        return redirect("/adminuser/users")
+    
+
+@method_decorator(login_required,name='dispatch')
 class AdminRentsView(View):
     def get(self,request):
         rents = RentedItem.objects.all().order_by('-id')
